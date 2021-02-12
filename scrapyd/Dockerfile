@@ -12,6 +12,18 @@ ENV PATH="/opt/venv/bin:$PATH"
 
 RUN python -m pip install --upgrade pip && pip install -U git+https://github.com/scrapy/scrapyd.git
 
+ARG USERNAME
+ARG PASSWORD
+ARG DATA_PATH=/var/lib/scrapyd
+ARG JOBS_TO_KEEP=5
+ARG MAX_PROC=0
+ARG MAX_PROC_PER_CPU=4
+ARG FINISHED_TO_KEEP=100
+ARG POLL_INTERVAL=5.0
+ARG BIND_ADDRESS=0.0.0.0
+ARG HTTP_PORT=6800
+ARG DEBUG=off
+
 COPY ./generate_conf.py /tmp/generate_conf.py
 RUN python /tmp/generate_conf.py > /tmp/scrapyd.conf
 

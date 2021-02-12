@@ -8,7 +8,7 @@ MAX_PROC = os.environ.get('MAX_PROC', 0)
 MAX_PROC_PER_CPU = os.environ.get('MAX_PROC_PER_CPU', 4)
 FINISHED_TO_KEEP = os.environ.get('FINISHED_TO_KEEP', 100)
 POLL_INTERVAL = os.environ.get('POLL_INTERVAL', 5.0)
-BIND_ADDRESS = os.environ.get('DATA_PATH', '0.0.0.0')
+BIND_ADDRESS = os.environ.get('BIND_ADDRESS', '0.0.0.0')
 HTTP_PORT = os.environ.get('HTTP_PORT', 6800)
 DEBUG = os.environ.get('DEBUG', 'off')
 
