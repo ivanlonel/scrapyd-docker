@@ -3,7 +3,7 @@ ARG PYTHON_VERSION=3-slim
 
 FROM python:$PYTHON_VERSION as install-scrapyd
 
-RUN apt-get update && apt-get install -y --no-install-recommends git curl
+RUN apt-get update && apt-get install -y --no-install-recommends gcc git curl build-essential
 
 RUN curl -sSL https://github.com/scrapy/scrapy/raw/master/extras/scrapy_bash_completion -o /tmp/scrapy_bash_completion
 
