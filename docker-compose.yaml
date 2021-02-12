@@ -5,14 +5,15 @@ services:
     scrapyd:
         build:
             context: ./scrapyd
+            args:
+                - USERNAME=ivan
+                - PASSWORD=qconcursos
         restart: always
-        hostname: scrapyd_host
+        container_name: scrapyd
         ports:
             - 6800:6800
         environment:
-            - USERNAME <scrapyd_username>
-            - PASSWORD <scrapyd_password>
-            - TZ America/Sao_Paulo
+            - TZ=America/Sao_Paulo
         volumes:
             - scrapyd_data:/var/lib/scrapyd/data
         networks:
@@ -21,15 +22,16 @@ services:
     scrapydweb:
         build:
             context: ./scrapydweb
+            args:
+                - USERNAME=ivan
+                - PASSWORD=qconcursos
+                - SCRAPYD_SERVERS=ivan:qconcursos@scrapyd:6800
+                - DATA_PATH=/var/lib/scrapydweb/data
         restart: always
         ports:
             - 5000:5000
         environment:
-            - USERNAME <scrapydweb_username>
-            - PASSWORD <scrapydweb_password>
-            - SCRAPYD_SERVERS <scrapyd_username>:<scrapyd_password>@scrapyd_host:6800
-            - DATA_PATH /var/lib/scrapydweb/data
-            - TZ America/Sao_Paulo
+            - TZ=America/Sao_Paulo
         volumes:
             - scrapydweb_data:/var/lib/scrapydweb/data
         networks:
@@ -43,4 +45,4 @@ volumes:
 
 networks:
     scrapyd_network:
-        driver: bridge
+#        driver: bridge
