@@ -2,7 +2,7 @@ import os
 
 USERNAME = os.environ.get('USERNAME', '')
 PASSWORD = os.environ.get('PASSWORD', '')
-DATA_PATH = os.environ.get('DATA_PATH', '/var/lib/scrapyd')
+DATA_DIR = os.environ.get('DATA_DIR', '/var/lib/scrapyd')
 JOBS_TO_KEEP = os.environ.get('JOBS_TO_KEEP', 5)
 MAX_PROC = os.environ.get('MAX_PROC', 0)
 MAX_PROC_PER_CPU = os.environ.get('MAX_PROC_PER_CPU', 4)
@@ -16,10 +16,10 @@ conf = f"""
 [scrapyd]
 username         = {USERNAME}
 password         = {PASSWORD}
-eggs_dir         = {DATA_PATH}/eggs
-logs_dir         = {DATA_PATH}/logs
-items_dir        = {DATA_PATH}/items
-dbs_dir          = {DATA_PATH}/dbs
+eggs_dir         = {DATA_DIR}/eggs
+logs_dir         = {DATA_DIR}/logs
+items_dir        = {DATA_DIR}/items
+dbs_dir          = {DATA_DIR}/dbs
 jobs_to_keep     = {JOBS_TO_KEEP}
 max_proc         = {MAX_PROC}
 max_proc_per_cpu = {MAX_PROC_PER_CPU}

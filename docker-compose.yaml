@@ -34,7 +34,7 @@ services:
             - TZ=America/Sao_Paulo
         volumes:
             - scrapydweb_data:/var/lib/scrapydweb/data
-            - scrapyd_data:/scrapyd_data:ro
+            - scrapyd_data:/scrapyd_data
         networks:
             - scrapyd_network
         depends_on:

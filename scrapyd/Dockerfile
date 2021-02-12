@@ -1,6 +1,6 @@
 ARG PYTHON_VERSION=3-slim
 ARG HTTP_PORT=6800
-ARG DATA_PATH=/var/lib/scrapyd
+ARG DATA_DIR=/var/lib/scrapyd
 
 
 FROM python:$PYTHON_VERSION as install-scrapyd
@@ -44,7 +44,9 @@ RUN echo 'source /etc/bash_completion.d/scrapy_bash_completion' >> /root/.bashrc
 
 COPY --from=install-scrapyd /tmp/scrapyd.conf /etc/scrapyd/scrapyd.conf
 
+RUN mkdir -p ${DATA_DIR}/logs
+
 EXPOSE $HTTP_PORT
 
-#CMD ["scrapyd", "--pidfile="]
-CMD bash -c "mkdir -p /var/lib/scrapyd/logs && scrapyd --pidfile="
+CMD ["scrapyd", "--pidfile="]
+
