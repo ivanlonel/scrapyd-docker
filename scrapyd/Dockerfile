@@ -46,4 +46,5 @@ COPY --from=install-scrapyd /tmp/scrapyd.conf /etc/scrapyd/scrapyd.conf
 
 EXPOSE $HTTP_PORT
 
-CMD ["scrapyd", "--pidfile="]
+#CMD ["scrapyd", "--pidfile="]
+CMD bash -c "mkdir -p /var/lib/scrapyd/logs && scrapyd --pidfile="

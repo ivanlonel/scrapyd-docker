@@ -30,7 +30,7 @@ services:
             - PASSWORD=qconcursos
             - SCRAPYD_SERVERS=ivan:qconcursos@scrapyd:6800
             - DATA_PATH=/var/lib/scrapydweb/data
-#            - LOCAL_SCRAPYD_LOGS_DIR=/scrapyd_data/logs
+            - LOCAL_SCRAPYD_LOGS_DIR=/scrapyd_data/logs
             - TZ=America/Sao_Paulo
         volumes:
             - scrapydweb_data:/var/lib/scrapydweb/data
