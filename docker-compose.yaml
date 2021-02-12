@@ -1,0 +1,46 @@
+version: '3.7'
+
+services:
+
+    scrapyd:
+        build:
+            context: ./scrapyd
+        restart: always
+        hostname: scrapyd_host
+        ports:
+            - 6800:6800
+        environment:
+            - USERNAME <scrapyd_username>
+            - PASSWORD <scrapyd_password>
+            - TZ America/Sao_Paulo
+        volumes:
+            - scrapyd_data:/var/lib/scrapyd/data
+        networks:
+            - scrapyd_network
+
+    scrapydweb:
+        build:
+            context: ./scrapydweb
+        restart: always
+        ports:
+            - 5000:5000
+        environment:
+            - USERNAME <scrapydweb_username>
+            - PASSWORD <scrapydweb_password>
+            - SCRAPYD_SERVERS <scrapyd_username>:<scrapyd_password>@scrapyd_host:6800
+            - DATA_PATH /var/lib/scrapydweb/data
+            - TZ America/Sao_Paulo
+        volumes:
+            - scrapydweb_data:/var/lib/scrapydweb/data
+        networks:
+            - scrapyd_network
+        depends_on:
+            - scrapyd
+
+volumes:
+    scrapyd_data:
+    scrapydweb_data:
+
+networks:
+    scrapyd_network:
+        driver: bridge
