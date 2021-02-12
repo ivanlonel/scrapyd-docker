@@ -1,7 +1,7 @@
 import os
 
-USERNAME = os.environ.get('USERNAME')
-PASSWORD = os.environ.get('PASSWORD')
+USERNAME = os.environ.get('USERNAME', '')
+PASSWORD = os.environ.get('PASSWORD', '')
 DATA_PATH = os.environ.get('DATA_PATH', '/var/lib/scrapyd')
 JOBS_TO_KEEP = os.environ.get('JOBS_TO_KEEP', 5)
 MAX_PROC = os.environ.get('MAX_PROC', 0)

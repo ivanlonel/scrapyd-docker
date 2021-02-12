@@ -1,4 +1,6 @@
 ARG PYTHON_VERSION=3-slim
+ARG HTTP_PORT=6800
+ARG DATA_PATH=/var/lib/scrapyd
 
 
 FROM python:$PYTHON_VERSION as install-scrapyd
@@ -10,18 +12,21 @@ RUN curl -sSL https://github.com/scrapy/scrapy/raw/master/extras/scrapy_bash_com
 RUN python -m venv /opt/venv
 ENV PATH="/opt/venv/bin:$PATH"
 
-RUN python -m pip install --upgrade pip && pip install -U git+https://github.com/scrapy/scrapyd.git
+RUN python -m pip install --upgrade pip && pip install -U \
+    git+https://github.com/scrapy/scrapyd.git \
+    cloudscraper \
+    logparser \
+    botocore \
+    bs4
 
 ARG USERNAME
 ARG PASSWORD
-ARG DATA_PATH=/var/lib/scrapyd
 ARG JOBS_TO_KEEP=5
 ARG MAX_PROC=0
 ARG MAX_PROC_PER_CPU=4
 ARG FINISHED_TO_KEEP=100
 ARG POLL_INTERVAL=5.0
 ARG BIND_ADDRESS=0.0.0.0
-ARG HTTP_PORT=6800
 ARG DEBUG=off
 
 COPY ./generate_conf.py /tmp/generate_conf.py
@@ -39,7 +44,6 @@ RUN echo 'source /etc/bash_completion.d/scrapy_bash_completion' >> /root/.bashrc
 
 COPY --from=install-scrapyd /tmp/scrapyd.conf /etc/scrapyd/scrapyd.conf
 
-ARG HTTP_PORT=6800
 EXPOSE $HTTP_PORT
 
 CMD ["scrapyd", "--pidfile="]

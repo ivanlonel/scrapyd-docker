@@ -15,25 +15,26 @@ services:
         environment:
             - TZ=America/Sao_Paulo
         volumes:
-            - scrapyd_data:/var/lib/scrapyd/data
+            - scrapyd_data:/var/lib/scrapyd
         networks:
             - scrapyd_network
 
     scrapydweb:
-        build:
-            context: ./scrapydweb
-            args:
-                - USERNAME=ivan
-                - PASSWORD=qconcursos
-                - SCRAPYD_SERVERS=ivan:qconcursos@scrapyd:6800
-                - DATA_PATH=/var/lib/scrapydweb/data
+        build: ./scrapydweb
         restart: always
+        container_name: scrapydweb
         ports:
             - 5000:5000
         environment:
+            - USERNAME=ivan
+            - PASSWORD=qconcursos
+            - SCRAPYD_SERVERS=ivan:qconcursos@scrapyd:6800
+            - DATA_PATH=/var/lib/scrapydweb/data
+#            - LOCAL_SCRAPYD_LOGS_DIR=/scrapyd_data/logs
             - TZ=America/Sao_Paulo
         volumes:
             - scrapydweb_data:/var/lib/scrapydweb/data
+            - scrapyd_data:/scrapyd_data:ro
         networks:
             - scrapyd_network
         depends_on:
