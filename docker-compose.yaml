@@ -13,6 +13,7 @@ services:
         ports:
             - 6800:6800
         environment:
+            - DATA_DIR=/var/lib/scrapyd
             - TZ=America/Sao_Paulo
         volumes:
             - scrapyd_data:/var/lib/scrapyd
@@ -29,8 +30,9 @@ services:
             - USERNAME=ivan
             - PASSWORD=qconcursos
             - SCRAPYD_SERVERS=ivan:qconcursos@scrapyd:6800
-            - DATA_PATH=/var/lib/scrapydweb/data
+            - LOCAL_SCRAPYD_SERVER=scrapyd:6800
             - LOCAL_SCRAPYD_LOGS_DIR=/scrapyd_data/logs
+            - DATA_PATH=/var/lib/scrapydweb/data
             - TZ=America/Sao_Paulo
         volumes:
             - scrapydweb_data:/var/lib/scrapydweb/data

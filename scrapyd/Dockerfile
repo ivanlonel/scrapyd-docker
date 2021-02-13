@@ -1,11 +1,10 @@
 ARG PYTHON_VERSION=3-slim
 ARG HTTP_PORT=6800
-ARG DATA_DIR=/var/lib/scrapyd
 
 
 FROM python:$PYTHON_VERSION as install-scrapyd
 
-RUN apt-get update && apt-get install -y --no-install-recommends gcc git curl build-essential
+RUN apt-get update && apt-get install -y --no-install-recommends git curl build-essential
 
 RUN curl -sSL https://github.com/scrapy/scrapy/raw/master/extras/scrapy_bash_completion -o /tmp/scrapy_bash_completion
 
@@ -44,9 +43,8 @@ RUN echo 'source /etc/bash_completion.d/scrapy_bash_completion' >> /root/.bashrc
 
 COPY --from=install-scrapyd /tmp/scrapyd.conf /etc/scrapyd/scrapyd.conf
 
-RUN mkdir -p ${DATA_DIR}/logs
-
 EXPOSE $HTTP_PORT
 
-CMD ["scrapyd", "--pidfile="]
-
+#CMD ["scrapyd", "--pidfile="]
+#CMD bash -c "mkdir -p /var/lib/scrapyd/logs && scrapyd --pidfile="
+CMD bash -c "mkdir -p ${DATA_DIR}/logs && scrapyd --pidfile="
