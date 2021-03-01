@@ -9,7 +9,7 @@ services:
                 - USERNAME=ivan
                 - PASSWORD=qconcursos
         restart: always
-        container_name: scrapyd
+#        container_name: scrapyd
         ports:
             - 6800:6800
         environment:
@@ -23,7 +23,7 @@ services:
     scrapydweb:
         build: ./scrapydweb
         restart: always
-        container_name: scrapydweb
+#        container_name: scrapydweb
         ports:
             - 5000:5000
         environment:

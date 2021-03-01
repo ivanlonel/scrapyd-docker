@@ -1,16 +1,16 @@
-ARG PYTHON_VERSION=3-slim
+ARG PYTHON_VERSION=3.9-slim
 
 
 FROM python:$PYTHON_VERSION as install-scrapydweb
 
 RUN apt-get update && apt-get install -y --no-install-recommends git
 
-RUN python -m venv /opt/venv
+RUN python -m venv /opt/venv --upgrade-deps
 ENV PATH="/opt/venv/bin:$PATH"
 
 RUN python -m pip install --upgrade pip && pip install -U git+https://github.com/my8100/scrapydweb.git
 
-#UN DIR=$(pip show logparser | sed -n 's/^Location: //gp') && \
+#RUN DIR=$(pip show logparser | sed -n 's/^Location: //gp') && \
 #   sed -i "s/^OVERRIDE_TELNET_CONSOLE_HOST = ''/OVERRIDE_TELNET_CONSOLE_HOST = '${TELNET_CONSOLE_HOST}'/g" ${DIR}/logparser/settings.py && \
 #   grep ${DIR}/logparser/settings.py -e "OVERRIDE_TELNET_CONSOLE_HOST"
 

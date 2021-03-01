@@ -1,14 +1,17 @@
-ARG PYTHON_VERSION=3-slim
+ARG PYTHON_VERSION=3.9-slim
 ARG HTTP_PORT=6800
 
 
 FROM python:$PYTHON_VERSION as install-scrapyd
 
-RUN apt-get update && apt-get install -y --no-install-recommends git curl build-essential
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    curl \
+    git
 
 RUN curl -sSL https://github.com/scrapy/scrapy/raw/master/extras/scrapy_bash_completion -o /tmp/scrapy_bash_completion
 
-RUN python -m venv /opt/venv
+RUN python -m venv /opt/venv --upgrade-deps
 ENV PATH="/opt/venv/bin:$PATH"
 
 RUN python -m pip install --upgrade pip && pip install -U \
