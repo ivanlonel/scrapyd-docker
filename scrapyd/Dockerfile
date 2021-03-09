@@ -4,6 +4,9 @@ ARG HTTP_PORT=6800
 
 FROM python:$PYTHON_VERSION as install-scrapyd
 
+RUN python -m venv /opt/venv --upgrade-deps
+ENV PATH="/opt/venv/bin:$PATH"
+
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
     curl \
@@ -11,15 +14,12 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 RUN curl -sSL https://github.com/scrapy/scrapy/raw/master/extras/scrapy_bash_completion -o /tmp/scrapy_bash_completion
 
-RUN python -m venv /opt/venv --upgrade-deps
-ENV PATH="/opt/venv/bin:$PATH"
-
 RUN python -m pip install --upgrade pip && pip install -U \
     git+https://github.com/scrapy/scrapyd.git \
-    cloudscraper \
-    logparser \
     botocore \
-    bs4
+    bs4 \
+    cloudscraper \
+    logparser
 
 ARG USERNAME
 ARG PASSWORD
@@ -33,6 +33,8 @@ ARG DEBUG=off
 
 COPY ./generate_conf.py /tmp/generate_conf.py
 RUN python /tmp/generate_conf.py > /tmp/scrapyd.conf
+
+# I should probably run generate_conf.py in an entrypoint script, not at build time
 
 
 FROM python:$PYTHON_VERSION AS run-scrapyd
