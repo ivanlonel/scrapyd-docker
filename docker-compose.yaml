@@ -6,10 +6,9 @@ services:
         build:
             context: ./scrapyd
             args:
-                - USERNAME=ivan
-                - PASSWORD=qconcursos
+                - USERNAME=user
+                - PASSWORD=pass
         restart: always
-#        container_name: scrapyd
         ports:
             - 6800:6800
         environment:
@@ -23,15 +22,15 @@ services:
     scrapydweb:
         build: ./scrapydweb
         restart: always
-#        container_name: scrapydweb
         ports:
             - 5000:5000
         environment:
-            - USERNAME=ivan
-            - PASSWORD=qconcursos
-            - SCRAPYD_SERVERS=ivan:qconcursos@scrapyd:6800
+            - USERNAME=user
+            - PASSWORD=pass
+            - SCRAPYD_SERVERS=user:pass@scrapyd:6800
             - LOCAL_SCRAPYD_SERVER=scrapyd:6800
             - LOCAL_SCRAPYD_LOGS_DIR=/scrapyd_data/logs
+            - TELNET_CONSOLE_HOST=scrapyd
             - DATA_PATH=/var/lib/scrapydweb/data
             - TZ=America/Sao_Paulo
         volumes:
