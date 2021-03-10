@@ -30,10 +30,12 @@ ENV PATH="$VENV_PATH/bin:$PATH"
 COPY --from=install-scrapyd /tmp/scrapy_bash_completion /etc/bash_completion.d/scrapy_bash_completion
 RUN echo 'source /etc/bash_completion.d/scrapy_bash_completion' >> /root/.bashrc
 
-ARG HTTP_PORT=6800
-EXPOSE $HTTP_PORT
+COPY ./entrypoint.sh /entrypoint.sh
+RUN ["chmod", "+x", "/entrypoint.sh"]
 
 COPY ./generate_conf.py /tmp/generate_conf.py
-COPY ./entrypoint.sh /entrypoint.sh
+
+ARG HTTP_PORT=6800
+EXPOSE $HTTP_PORT
 
 CMD ["/entrypoint.sh"]
