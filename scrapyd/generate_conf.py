@@ -16,10 +16,10 @@ conf = f"""
 [scrapyd]
 username         = {USERNAME}
 password         = {PASSWORD}
-eggs_dir         = {DATA_DIR}/eggs
-logs_dir         = {DATA_DIR}/logs
-items_dir        = {DATA_DIR}/items
-dbs_dir          = {DATA_DIR}/dbs
+eggs_dir         = {os.path.join(DATA_DIR, 'eggs')}
+logs_dir         = {os.path.join(DATA_DIR, 'logs')}
+items_dir        = {os.path.join(DATA_DIR, 'items')}
+dbs_dir          = {os.path.join(DATA_DIR, 'dbs')}
 jobs_to_keep     = {JOBS_TO_KEEP}
 max_proc         = {MAX_PROC}
 max_proc_per_cpu = {MAX_PROC_PER_CPU}
