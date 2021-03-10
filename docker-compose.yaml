@@ -20,7 +20,10 @@ services:
             - scrapyd_network
 
     scrapydweb:
-        build: ./scrapydweb
+        build:
+            context: ./scrapydweb
+            args:
+                - TELNET_CONSOLE_HOST=scrapyd
         restart: always
         ports:
             - 5000:5000
@@ -30,7 +33,6 @@ services:
             - SCRAPYD_SERVERS=user:pass@scrapyd:6800
             - LOCAL_SCRAPYD_SERVER=scrapyd:6800
             - LOCAL_SCRAPYD_LOGS_DIR=/scrapyd_data/logs
-            - TELNET_CONSOLE_HOST=scrapyd
             - DATA_PATH=/var/lib/scrapydweb/data
             - TZ=America/Sao_Paulo
         volumes:
