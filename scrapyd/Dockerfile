@@ -17,8 +17,7 @@ RUN python -m venv /opt/venv --upgrade-deps && \
         git+https://github.com/scrapy/scrapyd.git \
         botocore \
         bs4 \
-        cloudscraper \
-        logparser
+        cloudscraper
 
 
 FROM python:$BASE_IMAGE_TAG AS run-scrapyd
@@ -31,11 +30,10 @@ COPY --from=install-scrapyd /tmp/scrapy_bash_completion /etc/bash_completion.d/s
 RUN echo 'source /etc/bash_completion.d/scrapy_bash_completion' >> /root/.bashrc
 
 COPY ./entrypoint.sh /entrypoint.sh
-RUN ["chmod", "+x", "/entrypoint.sh"]
-
 COPY ./generate_conf.py /tmp/generate_conf.py
 
 ARG HTTP_PORT=6800
 EXPOSE $HTTP_PORT
 
+ENTRYPOINT ["bash"]
 CMD ["/entrypoint.sh"]
