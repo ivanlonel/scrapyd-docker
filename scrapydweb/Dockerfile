@@ -30,5 +30,4 @@ COPY ./scrapydweb_settings_v*.py .
 ARG HTTP_PORT=5000
 EXPOSE $HTTP_PORT
 
-ENTRYPOINT ["bash"]
 CMD ["/entrypoint.sh"]

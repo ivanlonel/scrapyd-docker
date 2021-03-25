@@ -35,5 +35,4 @@ COPY ./generate_conf.py /tmp/generate_conf.py
 ARG HTTP_PORT=6800
 EXPOSE $HTTP_PORT
 
-ENTRYPOINT ["bash"]
 CMD ["/entrypoint.sh"]
